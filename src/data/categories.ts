@@ -1,4 +1,4 @@
-// data/categories.ts
+// src/data/categories.ts
 export const categories = [
   {
     id: 'dogs',
@@ -31,4 +31,22 @@ export const categories = [
   {
     id: 'reptiles',
     name: 'Reptiles & Amphibians',
-    description: '
+    description: 'Cold-blooded companions - from bearded dragons to leopard geckos.',
+    image: 'https://images.unsplash.com/photo-1535941339077-2dd1c7963098?w=500',
+    path: '/categories/reptiles'
+  },
+  {
+    id: 'fish',
+    name: 'Fish & Aquatics',
+    description: 'Dive into the world of bettas, goldfish, and tropical aquariums.',
+    image: 'https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=500',
+    path: '/categories/fish'
+  },
+  {
+    id: 'arachnids',
+    name: 'Arachnids & Insects',
+    description: 'For exotic pet keepers - tarantulas, scorpions, and more.',
+    image: 'https://images.unsplash.com/photo-1545165375-1f744f6b711e?w=500',
+    path: '/categories/arachnids'
+  }
+];
