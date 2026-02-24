@@ -46,7 +46,7 @@ export const categories = [
     id: 'arachnids',
     name: 'Arachnids & Insects',
     description: 'For exotic pet keepers - tarantulas, scorpions, and more.',
-    image: 'https://images.unsplash.com/photo-1470107355970-2ace9f20ab15?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: 'https://images.unsplash.com/photo-1470107355970-2ace9f20ab15?w=500',
     path: '/categories/arachnids'
   }
 ];
