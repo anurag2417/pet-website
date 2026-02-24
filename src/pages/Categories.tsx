@@ -1,7 +1,6 @@
-// pages/Categories.tsx
-import React from 'react';
-import CategoryCard from '../components/CategoryCard';
-import { categories } from '../data/categories';
+// src/pages/Categories.tsx
+import CategoryCard from '../components/CategoryCard'; // Fixed import path
+import { categories } from '../data/categories.ts';
 
 const Categories = () => {
   return (

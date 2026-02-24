@@ -1,11 +1,20 @@
-// pages/PetProfile.tsx
-import React from 'react';
+// src/pages/PetProfile.tsx
 import { useParams } from 'react-router-dom';
-import { petData } from '../data/petData';
+import { petData } from '../data/petData.ts';
 
 const PetProfile = () => {
   const { category, name } = useParams();
-  const pet = petData[`${category}-${name}`] || petData.hamster; // Fallback to hamster for demo
+  const petKey = `${category}-${name}`;
+  const pet = petData[petKey] || petData['small-mammals-hamster']; // Fallback to hamster
+
+  if (!pet) {
+    return (
+      <div className="container" style={{ padding: '3rem', textAlign: 'center' }}>
+        <h2>Pet profile not found</h2>
+        <p>The pet you're looking for doesn't exist or hasn't been added yet.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="container">

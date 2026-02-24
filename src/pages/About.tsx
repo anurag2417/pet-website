@@ -1,6 +1,4 @@
 // pages/About.tsx
-import React from 'react';
-
 const About = () => {
   return (
     <div className="container" style={{ padding: '3rem 0' }}>

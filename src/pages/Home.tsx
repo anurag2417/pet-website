@@ -1,4 +1,4 @@
-// pages/Home.tsx
+// src/pages/Home.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CategoryCard from '../components/CategoryCard';
@@ -14,6 +14,9 @@ const Home = () => {
       navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
     }
   };
+
+  // Only show first 4 categories on homepage
+  const homepageCategories = categories.slice(0, 4);
 
   return (
     <div>
@@ -34,10 +37,10 @@ const Home = () => {
         </div>
       </section>
 
-      <div className="container">
-        <h2 style={{ fontSize: '2rem', marginBottom: '2rem' }}>Popular Categories</h2>
+      <div className="container home-categories">
+        <h2 className="section-title">Popular Categories</h2>
         <div className="category-grid">
-          {categories.map((category) => (
+          {homepageCategories.map((category) => (
             <CategoryCard key={category.id} category={category} />
           ))}
         </div>
