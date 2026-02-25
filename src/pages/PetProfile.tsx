@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getPetById, getPetsByCategory, type Pet } from '../data/petData';
 import PrintCareSheet from '../components/PrintCareSheet';
+import PDFCareSheet from '../components/PDFCareSheet';
 
 const PetProfile = () => {
   const { categoryId, petId } = useParams<{ categoryId: string; petId: string }>();
@@ -11,15 +12,16 @@ const PetProfile = () => {
   const [loading, setLoading] = useState(true);
   const [activeImage, setActiveImage] = useState(0);
   const [showPrintModal, setShowPrintModal] = useState(false);
+  const [showPDFModal, setShowPDFModal] = useState(false);
 
   useEffect(() => {
     // Simulate loading data
     setLoading(true);
-    
+
     // Get the current pet
     const foundPet = getPetById(categoryId || '', petId || '');
     setPet(foundPet || null);
-    
+
     // Get related pets (same category, different from current)
     if (foundPet) {
       const sameCategory = getPetsByCategory(categoryId || '')
@@ -27,9 +29,9 @@ const PetProfile = () => {
         .slice(0, 3); // Show max 3 related pets
       setRelatedPets(sameCategory);
     }
-    
+
     setLoading(false);
-    
+
     // Scroll to top when pet changes
     window.scrollTo(0, 0);
   }, [categoryId, petId]);
@@ -56,16 +58,16 @@ const PetProfile = () => {
   if (!pet) {
     return (
       <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>
-        <div style={{ 
-          fontSize: '5rem', 
+        <div style={{
+          fontSize: '5rem',
           marginBottom: '1rem',
           color: 'var(--text-muted)'
         }}>
           🐾
         </div>
         <h2>Pet Profile Not Found</h2>
-        <p style={{ 
-          marginBottom: '2rem', 
+        <p style={{
+          marginBottom: '2rem',
           color: 'var(--text-secondary)',
           maxWidth: '500px',
           margin: '1rem auto 2rem'
@@ -87,9 +89,9 @@ const PetProfile = () => {
   return (
     <div className="container" style={{ padding: '2rem 0' }}>
       {/* Breadcrumb Navigation */}
-      <div style={{ 
-        display: 'flex', 
-        gap: '0.5rem', 
+      <div style={{
+        display: 'flex',
+        gap: '0.5rem',
         marginBottom: '2rem',
         color: 'var(--text-muted)',
         fontSize: '0.9rem'
@@ -109,10 +111,10 @@ const PetProfile = () => {
       <div className="pet-profile">
         {/* Header Section with Image */}
         <div className="pet-header">
-          <img 
-            src={pet.gallery[activeImage] || pet.image} 
-            alt={pet.name} 
-            className="pet-header-image" 
+          <img
+            src={pet.gallery[activeImage] || pet.image}
+            alt={pet.name}
+            className="pet-header-image"
           />
           <div className="pet-header-overlay">
             <h1 className="pet-name">{pet.name}</h1>
@@ -122,9 +124,9 @@ const PetProfile = () => {
 
         {/* Thumbnail Gallery */}
         {pet.gallery && pet.gallery.length > 1 && (
-          <div style={{ 
-            display: 'flex', 
-            gap: '0.5rem', 
+          <div style={{
+            display: 'flex',
+            gap: '0.5rem',
             padding: '1rem',
             backgroundColor: 'var(--secondary-dark)',
             overflowX: 'auto'
@@ -179,8 +181,8 @@ const PetProfile = () => {
         </div>
 
         {/* Main Content Grid */}
-        <div style={{ 
-          display: 'grid', 
+        <div style={{
+          display: 'grid',
           gridTemplateColumns: '2fr 1fr',
           gap: '2rem',
           padding: '2rem'
@@ -193,8 +195,8 @@ const PetProfile = () => {
               alignItems: 'center',
               marginBottom: '2rem'
             }}>
-              <h2 style={{ 
-                fontSize: '2rem', 
+              <h2 style={{
+                fontSize: '2rem',
                 color: 'var(--text-primary)',
                 margin: 0
               }}>
@@ -214,10 +216,10 @@ const PetProfile = () => {
                 <span>🖨️</span> Print
               </button>
             </div>
-            
+
             {/* Habitat */}
             <div className="care-section" style={{ marginBottom: '2rem' }}>
-              <h3 style={{ 
+              <h3 style={{
                 color: 'var(--accent-green)',
                 display: 'flex',
                 alignItems: 'center',
@@ -248,7 +250,7 @@ const PetProfile = () => {
 
             {/* Diet */}
             <div className="care-section" style={{ marginBottom: '2rem' }}>
-              <h3 style={{ 
+              <h3 style={{
                 color: 'var(--accent-green)',
                 display: 'flex',
                 alignItems: 'center',
@@ -279,7 +281,7 @@ const PetProfile = () => {
 
             {/* Health */}
             <div className="care-section" style={{ marginBottom: '2rem' }}>
-              <h3 style={{ 
+              <h3 style={{
                 color: 'var(--accent-green)',
                 display: 'flex',
                 alignItems: 'center',
@@ -310,7 +312,7 @@ const PetProfile = () => {
 
             {/* Behavior */}
             <div className="care-section">
-              <h3 style={{ 
+              <h3 style={{
                 color: 'var(--accent-green)',
                 display: 'flex',
                 alignItems: 'center',
@@ -343,14 +345,14 @@ const PetProfile = () => {
           {/* Right Column - Fun Facts & Quick Info */}
           <div>
             {/* Fun Facts */}
-            <div className="fun-facts" style={{ 
+            <div className="fun-facts" style={{
               backgroundColor: 'var(--secondary-dark)',
               borderRadius: '15px',
               padding: '1.5rem',
               marginBottom: '2rem',
               border: '1px solid var(--border-color)'
             }}>
-              <h3 style={{ 
+              <h3 style={{
                 fontSize: '1.5rem',
                 marginBottom: '1.5rem',
                 color: 'var(--text-primary)'
@@ -379,7 +381,7 @@ const PetProfile = () => {
               padding: '1.5rem',
               border: '1px solid var(--border-color)'
             }}>
-              <h3 style={{ 
+              <h3 style={{
                 fontSize: '1.3rem',
                 marginBottom: '1rem',
                 color: 'var(--text-primary)'
@@ -407,138 +409,136 @@ const PetProfile = () => {
             </div>
 
             {/* Print Button */}
-<button
-  onClick={() => setShowPrintModal(true)}
-  style={{
-    padding: '0.75rem 1.5rem',
-    backgroundColor: 'var(--accent-green)',
-    color: 'white',
-    border: 'none',
-    borderRadius: '10px',
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '0.5rem',
-    width: '100%',
-    fontSize: '1rem',
-    fontWeight: '600',
-    marginBottom: '1rem',
-    transition: 'all 0.3s'
-  }}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.backgroundColor = '#3d8b7e';
-    e.currentTarget.style.transform = 'translateY(-2px)';
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.backgroundColor = 'var(--accent-green)';
-    e.currentTarget.style.transform = 'translateY(0)';
-  }}
->
-  <span>🖨️</span>
-  Print Care Sheet
-</button>
+            <button
+              onClick={() => setShowPrintModal(true)}
+              style={{
+                padding: '0.75rem 1.5rem',
+                backgroundColor: 'var(--accent-green)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '10px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem',
+                width: '100%',
+                fontSize: '1rem',
+                fontWeight: '600',
+                transition: 'all 0.3s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = '#3d8b7e';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--accent-green)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <span>🖨️</span>
+              Print Care Sheet
+            </button>
+          </div>
 
-{/* Print Modal */}
-{showPrintModal && (
-  <PrintCareSheet 
-    pet={pet} 
-    onClose={() => setShowPrintModal(false)} 
-  />
-)}
+          {/* Modals */}
+          {showPrintModal && (
+            <PrintCareSheet
+              pet={pet}
+              onClose={() => setShowPrintModal(false)}
+            />
+          )}
 
-            {/* Share Buttons */}
-            <div style={{
-              marginTop: '2rem',
-              display: 'flex',
-              gap: '0.5rem',
-              justifyContent: 'center'
+          {showPDFModal && (
+            <PDFCareSheet
+              pet={pet}
+              onClose={() => setShowPDFModal(false)}
+            />
+          )}
+
+          {/* Share Buttons */}
+          <div style={{
+            marginTop: '2rem',
+            display: 'flex',
+            gap: '0.5rem',
+            justifyContent: 'center'
+          }}>
+            <button style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: '#4267B2',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer'
             }}>
-              <button style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: '#4267B2',
-                color: 'white',
-                border: 'none',
-                borderRadius: '5px',
-                cursor: 'pointer'
-              }}>
-                Share
-              </button>
-              <button style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: '#1DA1F2',
-                color: 'white',
-                border: 'none',
-                borderRadius: '5px',
-                cursor: 'pointer'
-              }}>
-                Tweet
-              </button>
-              <button style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: '#25D366',
-                color: 'white',
-                border: 'none',
-                borderRadius: '5px',
-                cursor: 'pointer'
-              }}>
-                WhatsApp
-              </button>
-            </div>
+              Share
+            </button>
+            <button style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: '#1DA1F2',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer'
+            }}>
+              Tweet
+            </button>
+            <button style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: '#25D366',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer'
+            }}>
+              WhatsApp
+            </button>
           </div>
         </div>
-
-        {/* Related Pets Section */}
-        {relatedPets.length > 0 && (
-          <div style={{ padding: '2rem', borderTop: '1px solid var(--border-color)' }}>
-            <h2 style={{ 
-              fontSize: '1.8rem', 
-              marginBottom: '2rem',
-              color: 'var(--text-primary)'
-            }}>
-              You Might Also Like
-            </h2>
-            <div className="category-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
-              {relatedPets.map((relatedPet) => (
-                <Link
-                  key={relatedPet.id}
-                  to={`/pet/${relatedPet.category}/${relatedPet.id}`}
-                  className="category-card"
-                  style={{ height: '100%' }}
-                >
-                  <img 
-                    src={relatedPet.image} 
-                    alt={relatedPet.name} 
-                    className="category-image"
-                    style={{ height: '150px' }}
-                  />
-                  <div className="category-content">
-                    <h3 className="category-title" style={{ fontSize: '1.2rem' }}>
-                      {relatedPet.name}
-                    </h3>
-                    <p className="category-description" style={{ 
-                      fontSize: '0.9rem',
-                      marginBottom: '1rem'
-                    }}>
-                      {relatedPet.summary.substring(0, 80)}...
-                    </p>
-                    <span className="btn btn-secondary" style={{ fontSize: '0.8rem' }}>
-                      View Profile →
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
 
-      {/* Print Care Sheet Modal */}
-      {showPrintModal && (
-        <PrintCareSheet 
-          pet={pet} 
-          onClose={() => setShowPrintModal(false)} 
-        />
+      {/* Related Pets Section */}
+      {relatedPets.length > 0 && (
+        <div style={{ padding: '2rem', borderTop: '1px solid var(--border-color)' }}>
+          <h2 style={{
+            fontSize: '1.8rem',
+            marginBottom: '2rem',
+            color: 'var(--text-primary)'
+          }}>
+            You Might Also Like
+          </h2>
+          <div className="category-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+            {relatedPets.map((relatedPet) => (
+              <Link
+                key={relatedPet.id}
+                to={`/pet/${relatedPet.category}/${relatedPet.id}`}
+                className="category-card"
+                style={{ height: '100%' }}
+              >
+                <img
+                  src={relatedPet.image}
+                  alt={relatedPet.name}
+                  className="category-image"
+                  style={{ height: '150px' }}
+                />
+                <div className="category-content">
+                  <h3 className="category-title" style={{ fontSize: '1.2rem' }}>
+                    {relatedPet.name}
+                  </h3>
+                  <p className="category-description" style={{
+                    fontSize: '0.9rem',
+                    marginBottom: '1rem'
+                  }}>
+                    {relatedPet.summary.substring(0, 80)}...
+                  </p>
+                  <span className="btn btn-secondary" style={{ fontSize: '0.8rem' }}>
+                    View Profile →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
       )}
 
       {/* Add CSS animation */}
