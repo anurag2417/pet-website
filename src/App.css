@@ -45,6 +45,7 @@
 body {
   margin: 0;
   padding: 10px;
+  border-radius: 1%;
   display: block;
   place-items: unset;
   min-width: 100%;

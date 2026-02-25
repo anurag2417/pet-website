@@ -1,12 +1,36 @@
 // src/pages/PetProfile.tsx
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import { petData } from '../data/petData.ts';
+import petData from '../data/petData';
 
-const PetProfile = () => {
-  const { category, name } = useParams();
+// 1. Define the shape of a Pet object to fix TypeScript errors
+interface Pet {
+  name: string;
+  summary: string;
+  image: string;
+  lifespan: string;
+  size: string;
+  temperament: string;
+  difficulty: string;
+  habitat: string[];
+  diet: string[];
+  health: string[];
+  behavior: string[];
+  funFacts: string[];
+  gallery: string[];
+}
+
+const PetProfile: React.FC = () => {
+  const { category, name } = useParams<{ category: string; name: string }>();
+  
+  // Construct the Lookup key
   const petKey = `${category}-${name}`;
-  const pet = petData[petKey] || petData['small-mammals-hamster']; // Fallback to hamster
 
+  // 2. Lookup the pet, with a fallback (using 'unknown' to bypass strict checks)
+  const data = petData as unknown as Record<string, Pet>;
+  const pet = data[petKey] || data['small-mammals-hamster']; 
+
+  // 3. Handle the case where even the fallback fails
   if (!pet) {
     return (
       <div className="container" style={{ padding: '3rem', textAlign: 'center' }}>
@@ -19,6 +43,7 @@ const PetProfile = () => {
   return (
     <div className="container">
       <div className="pet-profile">
+        
         {/* Header Section */}
         <div className="pet-header">
           <img src={pet.image} alt={pet.name} className="pet-header-image" />
@@ -68,6 +93,7 @@ const PetProfile = () => {
                 ))}
               </ul>
             </div>
+            
             <div className="care-section">
               <h3>🥕 Diet & Nutrition</h3>
               <ul>
@@ -76,6 +102,7 @@ const PetProfile = () => {
                 ))}
               </ul>
             </div>
+
             <div className="care-section">
               <h3>💚 Health & Wellness</h3>
               <ul>
@@ -84,6 +111,7 @@ const PetProfile = () => {
                 ))}
               </ul>
             </div>
+
             <div className="care-section">
               <h3>🤝 Handling & Behavior</h3>
               <ul>
@@ -121,6 +149,7 @@ const PetProfile = () => {
             ))}
           </div>
         </div>
+
       </div>
     </div>
   );
