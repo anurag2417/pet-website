@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getPetById, getPetsByCategory, type Pet } from '../data/petData';
+import PrintCareSheet from '../components/PrintCareSheet';
 
 const PetProfile = () => {
   const { categoryId, petId } = useParams<{ categoryId: string; petId: string }>();
@@ -9,6 +10,7 @@ const PetProfile = () => {
   const [relatedPets, setRelatedPets] = useState<Pet[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeImage, setActiveImage] = useState(0);
+  const [showPrintModal, setShowPrintModal] = useState(false);
 
   useEffect(() => {
     // Simulate loading data
@@ -185,13 +187,33 @@ const PetProfile = () => {
         }}>
           {/* Left Column - Detailed Care Guide */}
           <div>
-            <h2 style={{ 
-              fontSize: '2rem', 
-              marginBottom: '2rem',
-              color: 'var(--text-primary)'
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '2rem'
             }}>
-              Complete Care Guide
-            </h2>
+              <h2 style={{ 
+                fontSize: '2rem', 
+                color: 'var(--text-primary)',
+                margin: 0
+              }}>
+                Complete Care Guide
+              </h2>
+              <button
+                onClick={() => setShowPrintModal(true)}
+                className="btn btn-primary"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '20px'
+                }}
+              >
+                <span>🖨️</span> Print
+              </button>
+            </div>
             
             {/* Habitat */}
             <div className="care-section" style={{ marginBottom: '2rem' }}>
@@ -384,6 +406,47 @@ const PetProfile = () => {
               </div>
             </div>
 
+            {/* Print Button */}
+<button
+  onClick={() => setShowPrintModal(true)}
+  style={{
+    padding: '0.75rem 1.5rem',
+    backgroundColor: 'var(--accent-green)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '10px',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '0.5rem',
+    width: '100%',
+    fontSize: '1rem',
+    fontWeight: '600',
+    marginBottom: '1rem',
+    transition: 'all 0.3s'
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.backgroundColor = '#3d8b7e';
+    e.currentTarget.style.transform = 'translateY(-2px)';
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.backgroundColor = 'var(--accent-green)';
+    e.currentTarget.style.transform = 'translateY(0)';
+  }}
+>
+  <span>🖨️</span>
+  Print Care Sheet
+</button>
+
+{/* Print Modal */}
+{showPrintModal && (
+  <PrintCareSheet 
+    pet={pet} 
+    onClose={() => setShowPrintModal(false)} 
+  />
+)}
+
             {/* Share Buttons */}
             <div style={{
               marginTop: '2rem',
@@ -469,6 +532,14 @@ const PetProfile = () => {
           </div>
         )}
       </div>
+
+      {/* Print Care Sheet Modal */}
+      {showPrintModal && (
+        <PrintCareSheet 
+          pet={pet} 
+          onClose={() => setShowPrintModal(false)} 
+        />
+      )}
 
       {/* Add CSS animation */}
       <style>{`
