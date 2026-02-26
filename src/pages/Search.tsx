@@ -1,9 +1,8 @@
 // src/pages/Search.tsx
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { searchPets, getAllCategories } from '../data/petData';
 import type { Pet } from '../data/petData';
-import SearchBar from '../components/SearchBar';
 
 const Search = () => {
   const [searchParams] = useSearchParams();
@@ -68,6 +67,15 @@ const Search = () => {
     setSortBy('relevance');
   };
 
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const newQuery = formData.get('search') as string;
+    if (newQuery.trim()) {
+      window.location.href = `/search?q=${encodeURIComponent(newQuery)}`;
+    }
+  };
+
   if (!query) {
     return (
       <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>
@@ -76,7 +84,16 @@ const Search = () => {
           Enter a search term to find pet care guides
         </p>
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-          <SearchBar autoFocus />
+          <form onSubmit={handleSearch} className="search-container">
+            <input
+              type="text"
+              name="search"
+              placeholder="Search for any pet..."
+              className="search-input"
+              autoFocus
+            />
+            <button type="submit" className="search-button">Search</button>
+          </form>
         </div>
       </div>
     );
@@ -84,11 +101,28 @@ const Search = () => {
 
   return (
     <div className="container" style={{ padding: '2rem 0' }}>
-      {/* Header */}
-      <div style={{ marginBottom: '2rem' }}>
-        <h1 className="section-title">Search Results</h1>
-        <div style={{ maxWidth: '600px', margin: '2rem auto' }}>
-          <SearchBar />
+      {/* Header with Search */}
+      <div style={{ 
+        textAlign: 'center', 
+        marginBottom: '2rem',
+        padding: '2rem',
+        background: 'linear-gradient(135deg, var(--primary-dark) 0%, var(--charcoal) 100%)',
+        borderRadius: '20px',
+        border: '1px solid var(--border-color)'
+      }}>
+        <h1 className="section-title" style={{ marginBottom: '1.5rem' }}>Search Results</h1>
+        <div style={{ maxWidth: '500px', margin: '0 auto' }}>
+          <form onSubmit={handleSearch} className="search-container">
+            <input
+              type="text"
+              name="search"
+              defaultValue={query}
+              placeholder="Search for any pet..."
+              className="search-input"
+              style={{ backgroundColor: 'var(--card-bg)', color: 'var(--text-primary)' }}
+            />
+            <button type="submit" className="search-button">Search</button>
+          </form>
         </div>
       </div>
 
@@ -98,19 +132,23 @@ const Search = () => {
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: '2rem',
-        padding: '1rem',
+        padding: '1.5rem',
         backgroundColor: 'var(--card-bg)',
-        borderRadius: '10px',
+        borderRadius: '15px',
         border: '1px solid var(--border-color)'
       }}>
         <div>
-          <h2 style={{ fontSize: '1.2rem', color: 'var(--text-primary)' }}>
-            Found {filteredResults.length} result{filteredResults.length !== 1 ? 's' : ''} 
+          <h2 style={{ 
+            fontSize: '1.5rem', 
+            color: 'var(--text-primary)',
+            marginBottom: '0.5rem'
+          }}>
+            Found {filteredResults.length} result{filteredResults.length !== 1 ? 's' : ''}
+          </h2>
+          <p style={{ color: 'var(--text-muted)', fontSize: '1rem' }}>
+            Search term: <strong>"{query}"</strong>
             {results.length !== filteredResults.length && 
               ` (filtered from ${results.length} total)`}
-          </h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-            {query && `Search term: "${query}"`}
           </p>
         </div>
         
@@ -119,12 +157,22 @@ const Search = () => {
           <button
             onClick={clearFilters}
             style={{
-              padding: '0.5rem 1rem',
+              padding: '0.75rem 1.5rem',
               backgroundColor: 'transparent',
-              border: '1px solid var(--accent-green)',
+              border: '2px solid var(--accent-green)',
               color: 'var(--accent-green)',
-              borderRadius: '5px',
-              cursor: 'pointer'
+              borderRadius: '10px',
+              cursor: 'pointer',
+              fontWeight: '600',
+              transition: 'all 0.3s'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--accent-green)';
+              e.currentTarget.style.color = 'white';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = 'var(--accent-green)';
             }}
           >
             Clear Filters ✕
@@ -138,9 +186,9 @@ const Search = () => {
         gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
         gap: '1rem',
         marginBottom: '2rem',
-        padding: '1rem',
+        padding: '1.5rem',
         backgroundColor: 'var(--secondary-dark)',
-        borderRadius: '10px',
+        borderRadius: '15px',
         border: '1px solid var(--border-color)'
       }}>
         {/* Category Filter */}
@@ -149,7 +197,8 @@ const Search = () => {
             display: 'block', 
             marginBottom: '0.5rem', 
             color: 'var(--text-muted)',
-            fontSize: '0.9rem'
+            fontSize: '0.9rem',
+            fontWeight: '500'
           }}>
             Category
           </label>
@@ -158,17 +207,19 @@ const Search = () => {
             onChange={(e) => setSelectedCategory(e.target.value)}
             style={{
               width: '100%',
-              padding: '0.5rem',
+              padding: '0.75rem',
               backgroundColor: 'var(--card-bg)',
               color: 'var(--text-primary)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '5px'
+              border: '2px solid var(--border-color)',
+              borderRadius: '10px',
+              fontSize: '0.95rem',
+              cursor: 'pointer'
             }}
           >
             <option value="all">All Categories</option>
             {categories.map(cat => (
               <option key={cat} value={cat}>
-                {cat.charAt(0).toUpperCase() + cat.slice(1).replace('-', ' ')}
+                {cat.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
               </option>
             ))}
           </select>
@@ -180,7 +231,8 @@ const Search = () => {
             display: 'block', 
             marginBottom: '0.5rem', 
             color: 'var(--text-muted)',
-            fontSize: '0.9rem'
+            fontSize: '0.9rem',
+            fontWeight: '500'
           }}>
             Care Difficulty
           </label>
@@ -189,11 +241,13 @@ const Search = () => {
             onChange={(e) => setSelectedDifficulty(e.target.value)}
             style={{
               width: '100%',
-              padding: '0.5rem',
+              padding: '0.75rem',
               backgroundColor: 'var(--card-bg)',
               color: 'var(--text-primary)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '5px'
+              border: '2px solid var(--border-color)',
+              borderRadius: '10px',
+              fontSize: '0.95rem',
+              cursor: 'pointer'
             }}
           >
             <option value="all">All Levels</option>
@@ -209,7 +263,8 @@ const Search = () => {
             display: 'block', 
             marginBottom: '0.5rem', 
             color: 'var(--text-muted)',
-            fontSize: '0.9rem'
+            fontSize: '0.9rem',
+            fontWeight: '500'
           }}>
             Sort By
           </label>
@@ -218,11 +273,13 @@ const Search = () => {
             onChange={(e) => setSortBy(e.target.value)}
             style={{
               width: '100%',
-              padding: '0.5rem',
+              padding: '0.75rem',
               backgroundColor: 'var(--card-bg)',
               color: 'var(--text-primary)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '5px'
+              border: '2px solid var(--border-color)',
+              borderRadius: '10px',
+              fontSize: '0.95rem',
+              cursor: 'pointer'
             }}
           >
             <option value="relevance">Relevance</option>
@@ -250,15 +307,16 @@ const Search = () => {
           borderRadius: '20px',
           border: '1px solid var(--border-color)'
         }}>
-          <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🔍</div>
-          <h2 style={{ marginBottom: '1rem' }}>No pets found</h2>
+          <div style={{ fontSize: '5rem', marginBottom: '1rem' }}>🔍</div>
+          <h2 style={{ marginBottom: '1rem', fontSize: '2rem' }}>No pets found</h2>
           <p style={{ 
             marginBottom: '2rem', 
             color: 'var(--text-secondary)',
             maxWidth: '500px',
-            margin: '0 auto 2rem'
+            margin: '0 auto 2rem',
+            fontSize: '1.1rem'
           }}>
-            We couldn't find any pets matching "{query}". Try searching with different keywords.
+            We couldn't find any pets matching <strong>"{query}"</strong>
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
             <button
@@ -288,10 +346,10 @@ const Search = () => {
                 <div style={{
                   display: 'flex',
                   justifyContent: 'space-between',
-                  alignItems: 'start',
-                  marginBottom: '0.5rem'
+                  alignItems: 'center',
+                  marginBottom: '0.75rem'
                 }}>
-                  <h3 className="category-title">{pet.name}</h3>
+                  <h3 className="category-title" style={{ marginBottom: 0 }}>{pet.name}</h3>
                   <span className={`difficulty-badge difficulty-${pet.difficulty.toLowerCase()}`}
                     style={{ fontSize: '0.8rem' }}
                   >
@@ -303,15 +361,24 @@ const Search = () => {
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  marginTop: '1rem'
+                  marginTop: '1rem',
+                  paddingTop: '1rem',
+                  borderTop: '1px solid var(--border-color)'
                 }}>
                   <span style={{
-                    color: 'var(--text-muted)',
-                    fontSize: '0.9rem'
+                    color: 'var(--accent-green)',
+                    fontSize: '0.9rem',
+                    fontWeight: '500',
+                    backgroundColor: 'var(--secondary-dark)',
+                    padding: '0.3rem 1rem',
+                    borderRadius: '20px'
                   }}>
                     {pet.categoryName}
                   </span>
-                  <span className="btn btn-secondary" style={{ padding: '0.4rem 1rem' }}>
+                  <span className="btn btn-secondary" style={{ 
+                    padding: '0.5rem 1.2rem',
+                    fontSize: '0.9rem'
+                  }}>
                     View Profile →
                   </span>
                 </div>

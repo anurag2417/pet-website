@@ -6,7 +6,7 @@ import { categories } from '../data/categories';
 
 const Home = () => {
   const navigate = useNavigate();
-  
+
   // Only show first 4 categories on homepage
   const homepageCategories = categories.slice(0, 4);
 
@@ -24,9 +24,9 @@ const Home = () => {
       {/* Hero Section with Search */}
       <section className="hero">
         <div className="container">
-          <h1>Welcome to PetPedia</h1>
+          <h1>Welcome to Petopedia</h1>
           <p>Your comprehensive guide to pet care and animal knowledge</p>
-          
+
           {/* Search Form - Now matches the design */}
           <form onSubmit={handleSearch} className="search-container" style={{ maxWidth: '600px', margin: '0 auto' }}>
             <input
@@ -38,14 +38,15 @@ const Home = () => {
                 width: '100%',
                 padding: '1rem 1.5rem',
                 fontSize: '1rem',
-                border: 'none',
+                border: '2px solid #ddd',
                 borderRadius: '50px',
-                backgroundColor: 'white',
-                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)'
+                backgroundColor: '#ffffff', // White background
+                color: '#333333', // Dark text
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
               }}
             />
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="search-button"
               style={{
                 position: 'absolute',

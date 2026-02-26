@@ -218,7 +218,7 @@ h1, h2, h3, h4 {
   pointer-events: none;
 }
 
-.hero h1 {
+h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
   font-weight: 700;
@@ -228,7 +228,7 @@ h1, h2, h3, h4 {
   background-clip: text;
 }
 
-.hero p {
+p {
   font-size: 1.2rem;
   max-width: 600px;
   margin: 0 auto 2rem;
@@ -236,13 +236,13 @@ h1, h2, h3, h4 {
 }
 
 /* --- Search Bar --- */
-.hero .search-container {
+.search-container {
   position: relative;
   max-width: 600px;
   margin: 0 auto;
 }
 
-.hero .search-input {
+.search-input {
   width: 100%;
   padding: 1rem 1.5rem;
   font-size: 1rem;
@@ -253,17 +253,17 @@ h1, h2, h3, h4 {
   transition: all 0.3s;
 }
 
-.hero .search-input::placeholder {
+.search-input::placeholder {
   color: #999;
 }
 
-.hero .search-input:focus {
+.search-input:focus {
   outline: none;
   border-color: var(--accent-green);
   box-shadow: 0 4px 20px rgba(76, 175, 158, 0.3);
 }
 
-.hero .search-button {
+.search-button {
   position: absolute;
   right: 5px;
   top: 50%;
@@ -278,7 +278,7 @@ h1, h2, h3, h4 {
   transition: all 0.3s;
 }
 
-.hero .search-button:hover {
+.search-button:hover {
   transform: translateY(-50%) scale(1.05);
   box-shadow: 0 4px 15px rgba(76, 175, 158, 0.4);
 }

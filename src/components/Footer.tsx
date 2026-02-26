@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-section">
-          <h3>PetPedia</h3>
+          <h3>Petopedia</h3>
           <p>Your comprehensive guide to pet care and animal knowledge.</p>
         </div>
         <div className="footer-section">
@@ -21,7 +21,7 @@ const Footer = () => {
         <div className="footer-section">
           <h3>Contact</h3>
           <ul>
-            <li>Email: info@petpedia.com</li>
+            <li>Email: info@Petopedia.com</li>
             <li>Phone: +1 (555) 123-4567</li>
             <li>Address: 123 Pet Care Lane</li>
           </ul>
@@ -36,14 +36,14 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <div style={{ 
-        textAlign: 'center', 
-        marginTop: '2rem', 
-        paddingTop: '2rem', 
+      <div style={{
+        textAlign: 'center',
+        marginTop: '2rem',
+        paddingTop: '2rem',
         borderTop: '1px solid var(--border-color)',
         color: 'var(--text-muted)'
       }}>
-        <p>&copy; 2024 PetPedia. All rights reserved.</p>
+        <p>&copy; 2024 Petopedia. All rights reserved.</p>
       </div>
     </footer>
   );

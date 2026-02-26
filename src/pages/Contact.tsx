@@ -32,19 +32,19 @@ const Contact = () => {
         Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
       </p>
 
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-        gap: '2rem' 
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '2rem'
       }}>
-        <div style={{ 
-          backgroundColor: 'var(--neutral-white)', 
-          padding: '2rem', 
+        <div style={{
+          backgroundColor: 'var(--neutral-white)',
+          padding: '2rem',
           borderRadius: '15px',
           boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
         }}>
           <h2 style={{ color: 'var(--sage-green)', marginBottom: '1.5rem' }}>Get in Touch</h2>
-          
+
           {!submitted ? (
             <form onSubmit={handleSubmit}>
               <div style={{ marginBottom: '1.5rem' }}>
@@ -137,8 +137,8 @@ const Contact = () => {
               <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>✓</div>
               <h3 style={{ color: 'var(--sage-green)', marginBottom: '1rem' }}>Thank You!</h3>
               <p>Your message has been sent. We'll get back to you soon!</p>
-              <button 
-                onClick={() => setSubmitted(false)} 
+              <button
+                onClick={() => setSubmitted(false)}
                 className="btn btn-secondary"
                 style={{ marginTop: '1rem' }}
               >
@@ -149,9 +149,9 @@ const Contact = () => {
         </div>
 
         <div>
-          <div style={{ 
-            backgroundColor: 'var(--neutral-white)', 
-            padding: '2rem', 
+          <div style={{
+            backgroundColor: 'var(--neutral-white)',
+            padding: '2rem',
             borderRadius: '15px',
             boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
             marginBottom: '2rem'
@@ -176,15 +176,15 @@ const Contact = () => {
             </div>
           </div>
 
-          <div style={{ 
-            backgroundColor: 'var(--neutral-white)', 
-            padding: '2rem', 
+          <div style={{
+            backgroundColor: 'var(--neutral-white)',
+            padding: '2rem',
             borderRadius: '15px',
             boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
           }}>
             <h2 style={{ color: 'var(--sage-green)', marginBottom: '1rem' }}>Other Ways to Connect</h2>
             <div style={{ marginBottom: '1rem' }}>
-              <strong>Email:</strong> info@petpedia.com
+              <strong>Email:</strong> info@Petopedia.com
             </div>
             <div style={{ marginBottom: '1rem' }}>
               <strong>Phone:</strong> +1 (555) 123-4567
