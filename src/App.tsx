@@ -10,6 +10,7 @@ import PetProfile from './pages/PetProfile';
 import Search from './pages/Search';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Compare from './pages/Compare';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/compare" element={<Compare />} />
         </Routes>
         <Footer />
       </div>

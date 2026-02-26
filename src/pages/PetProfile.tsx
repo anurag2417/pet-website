@@ -374,6 +374,36 @@ const PetProfile = () => {
               ))}
             </div>
 
+            {/* Quick Compare Button */}
+            <Link
+              to={`/compare?pets=${pet.id}`}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem',
+                backgroundColor: 'var(--secondary-dark)',
+                border: '2px solid var(--border-color)',
+                borderRadius: '10px',
+                color: 'var(--text-primary)',
+                textDecoration: 'none',
+                marginBottom: '1rem',
+                transition: 'all 0.3s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--card-bg)';
+                e.currentTarget.style.borderColor = 'var(--accent-green)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--secondary-dark)';
+                e.currentTarget.style.borderColor = 'var(--border-color)';
+              }}
+            >
+              <span>📊</span>
+              Compare with Others
+            </Link>
+
             {/* Quick Stats Card (your existing code) */}
             <div style={{
               backgroundColor: 'var(--secondary-dark)',
