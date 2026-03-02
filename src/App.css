@@ -1,6 +1,8 @@
 /* App.css - Modern Dark Theme Version */
 
-/* --- CSS Variables & Dark Theme Colors --- */
+/* =========================================
+   1. CSS Variables & Dark Theme Colors
+========================================= */
 :root {
   /* Dark theme primary colors */
   --primary-dark: #1a1e24;
@@ -26,7 +28,7 @@
   --border-color: #374151;
   --overlay-bg: rgba(0, 0, 0, 0.8);
   
-  /* Status colors - keeping same for consistency but adjusting for dark theme */
+  /* Status colors */
   --success-bg: #1b3b3b;
   --success-text: #4caf9e;
   --warning-bg: #3d3b1f;
@@ -35,7 +37,9 @@
   --danger-text: #ff6b6b;
 }
 
-/* --- Reset & Base Styles --- */
+/* =========================================
+   2. Reset & Base Styles
+========================================= */
 * {
   margin: 0;
   padding: 0;
@@ -45,18 +49,23 @@
 body {
   margin: 0;
   padding: 10px;
-  border-radius: 1%;
+  /* border-radius: 1%; Remove if causing layout issues */
   display: block;
-  place-items: unset;
   min-width: 100%;
   min-height: 100vh;
   width: 100%;
-  height: 100%;
   font-family: 'Inter', 'Open Sans', sans-serif;
   color: var(--text-primary);
   line-height: 1.6;
   background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 100%);
   overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 h1, h2, h3, h4 {
@@ -65,23 +74,130 @@ h1, h2, h3, h4 {
   letter-spacing: -0.02em;
 }
 
-/* --- Root Element Overrides --- */
-#root {
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-  text-align: left;
-  width: 100%;
-}
-
-/* --- Layout Containers --- */
+/* =========================================
+   3. Utilities & Animations
+========================================= */
 .container {
   max-width: 100%;
   margin: 0 auto;
   padding: 0 4%;
 }
 
-/* --- Navigation Bar --- */
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 2.5rem;
+  color: var(--text-primary);
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-green), var(--accent-teal));
+  border-radius: 2px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--accent-green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.modal-content {
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+/* =========================================
+   4. Buttons
+========================================= */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-green), var(--accent-teal));
+  color: white;
+  box-shadow: 0 4px 15px rgba(76, 175, 158, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(76, 175, 158, 0.4);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--accent-green);
+  border: 2px solid var(--accent-green);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.btn-secondary:hover {
+  background-color: var(--accent-green);
+  color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.print-button {
+  background-color: var(--accent-green);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.print-button:hover {
+  background-color: #3d8b7e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(76, 175, 158, 0.3);
+}
+
+.print-button:active {
+  transform: translateY(0);
+}
+
+/* =========================================
+   5. Navbar
+========================================= */
 .navbar {
   background-color: rgba(26, 30, 36, 0.95);
   backdrop-filter: blur(10px);
@@ -146,10 +262,6 @@ h1, h2, h3, h4 {
   padding: 0;
 }
 
-.nav-item {
-  list-style: none;
-}
-
 .nav-item a {
   text-decoration: none;
   color: var(--text-secondary);
@@ -195,7 +307,9 @@ h1, h2, h3, h4 {
   border-radius: 2px;
 }
 
-/* --- Hero Section --- */
+/* =========================================
+   6. Hero & Search Section
+========================================= */
 .hero {
   background: linear-gradient(135deg, var(--primary-dark) 0%, var(--charcoal) 100%);
   position: relative;
@@ -218,7 +332,7 @@ h1, h2, h3, h4 {
   pointer-events: none;
 }
 
-h1 {
+.hero h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
   font-weight: 700;
@@ -228,14 +342,14 @@ h1 {
   background-clip: text;
 }
 
-p {
+.hero p {
   font-size: 1.2rem;
   max-width: 600px;
   margin: 0 auto 2rem;
   color: var(--text-secondary);
 }
 
-/* --- Search Bar --- */
+/* --- Search Bar Styles (Desktop Default) --- */
 .search-container {
   position: relative;
   max-width: 600px;
@@ -249,9 +363,10 @@ p {
   border: 2px solid transparent;
   border-radius: 50px;
   background-color: white;
-  color: var(--text-primary);
+  color: #333; /* ← FIXED: was var(--text-primary) which is near-white */
   transition: all 0.3s;
-}
+} 
+
 
 .search-input::placeholder {
   color: #999;
@@ -283,35 +398,44 @@ p {
   box-shadow: 0 4px 15px rgba(76, 175, 158, 0.4);
 }
 
-/* --- Category Section --- */
-.section-title {
-  font-size: 2.5rem;
-  margin-bottom: 2.5rem;
-  color: var(--text-primary);
-  text-align: center;
-  position: relative;
-  display: inline-block;
-  left: 50%;
-  transform: translateX(-50%);
+/* Search Visibility & Suggestions */
+.desktop-search {
+  flex: 1;
+  max-width: 400px;
+  margin: 0 2rem;
+  display: block;
 }
 
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent-green), var(--accent-teal));
-  border-radius: 2px;
+.mobile-search {
+  margin-top: 1rem;
+  display: none;
 }
 
+.suggestions-container {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.suggestions-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.suggestions-container::-webkit-scrollbar-track {
+  background: var(--secondary-dark);
+}
+
+.suggestions-container::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+/* =========================================
+   7. Page Categories & Content
+========================================= */
 .home-categories {
   padding: 2rem 0;
 }
 
-/* --- Category Cards Grid --- */
 .category-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -378,23 +502,9 @@ p {
   margin-top: auto;
 }
 
-/* Add to App.css */
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid var(--border-color);
-  border-top-color: var(--accent-green);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Pet profile specific styles */
+/* =========================================
+   8. Pet Profile Pages
+========================================= */
 .pet-profile {
   background-color: var(--card-bg);
   border-radius: 30px;
@@ -438,157 +548,6 @@ p {
   color: rgba(255, 255, 255, 0.9);
 }
 
-@media screen and (max-width: 768px) {
-  .pet-header {
-    height: 300px;
-  }
-  
-  .pet-name {
-    font-size: 2rem;
-  }
-  
-  .pet-profile > div[style*="grid-template-columns"] {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .pet-header {
-    height: 250px;
-  }
-  
-  .pet-name {
-    font-size: 1.5rem;
-  }
-}
-
-/* --- Button Styles --- */
-.btn {
-  display: inline-block;
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-  text-decoration: none;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, var(--accent-green), var(--accent-teal));
-  color: white;
-  box-shadow: 0 4px 15px rgba(76, 175, 158, 0.3);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(76, 175, 158, 0.4);
-}
-
-.btn-secondary {
-  background-color: transparent;
-  color: var(--accent-green);
-  border: 2px solid var(--accent-green);
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-}
-
-.btn-secondary:hover {
-  background-color: var(--accent-green);
-  color: var(--primary-dark);
-  transform: translateY(-2px);
-}
-
-/* Add to App.css */
-.print-button {
-  background-color: var(--accent-green);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.3s;
-  width: 100%;
-}
-
-.print-button:hover {
-  background-color: #3d8b7e;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(76, 175, 158, 0.3);
-}
-
-.print-button:active {
-  transform: translateY(0);
-}
-
-/* Add to App.css */
-@keyframes modalFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.modal-content {
-  animation: modalFadeIn 0.3s ease-out;
-}
-
-/* --- Pet Profile Page Styles --- */
-.pet-profile {
-  background-color: var(--card-bg);
-  border-radius: 30px;
-  overflow: hidden;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-  margin: 2rem 0;
-  border: 1px solid var(--border-color);
-}
-
-.pet-header {
-  position: relative;
-  height: 400px;
-  overflow: hidden;
-}
-
-.pet-header-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.pet-header-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-  color: white;
-  padding: 2rem;
-}
-
-.pet-name {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-}
-
-.pet-summary {
-  font-size: 1.2rem;
-  max-width: 600px;
-  color: var(--text-secondary);
-}
-
-/* --- Quick Facts Section --- */
 .quick-facts {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -651,12 +610,12 @@ p {
   border: 1px solid var(--danger-text);
 }
 
-/* --- Care Guide Section --- */
-.care-guide {
+/* Care Guide & Fun Facts */
+.care-guide, .fun-facts, .gallery {
   padding: 2rem;
 }
 
-.care-guide h2 {
+.care-guide h2, .fun-facts h2, .gallery h2 {
   font-size: 2rem;
   margin-bottom: 2rem;
   color: var(--text-primary);
@@ -701,16 +660,8 @@ p {
   left: 0;
 }
 
-/* --- Fun Facts Section --- */
 .fun-facts {
-  padding: 2rem;
   background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
-}
-
-.fun-facts h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: var(--text-primary);
 }
 
 .facts-grid {
@@ -726,21 +677,9 @@ p {
   font-size: 1.1rem;
   font-style: italic;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  border-left: 4px solid var(--accent-green);
   border: 1px solid var(--border-color);
-  border-left-width: 4px;
+  border-left: 4px solid var(--accent-green);
   color: var(--text-secondary);
-}
-
-/* --- Gallery Section --- */
-.gallery {
-  padding: 2rem;
-}
-
-.gallery h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: var(--text-primary);
 }
 
 .gallery-grid {
@@ -765,7 +704,46 @@ p {
   border-color: var(--accent-green);
 }
 
-/* --- Footer Styles --- */
+/* =========================================
+   9. Forms & Footer
+========================================= */
+.about-section, .contact-form, .newsletter-box {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s;
+  background-color: var(--secondary-dark);
+  color: var(--text-primary);
+}
+
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--accent-green);
+  box-shadow: 0 0 0 3px rgba(76, 175, 158, 0.1);
+}
+
 .footer {
   background-color: var(--primary-darker);
   color: var(--text-primary);
@@ -809,72 +787,27 @@ p {
   color: var(--accent-green);
 }
 
-/* --- About Page Styles --- */
-.about-section {
-  background-color: var(--card-bg);
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--border-color);
+/* =========================================
+   10. Responsive Design (Media Queries)
+========================================= */
+
+/* Tablet (769px - 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero h1 {
+    font-size: 3rem;
+  }
 }
 
-/* --- Contact Page Styles --- */
-.contact-form {
-  background-color: var(--card-bg);
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--border-color);
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.form-input,
-.form-textarea {
-  width: 100%;
-  padding: 0.8rem;
-  border: 2px solid var(--border-color);
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: all 0.3s;
-  background-color: var(--secondary-dark);
-  color: var(--text-primary);
-}
-
-.form-input:focus,
-.form-textarea:focus {
-  outline: none;
-  border-color: var(--accent-green);
-  box-shadow: 0 0 0 3px rgba(76, 175, 158, 0.1);
-}
-
-.newsletter-box {
-  background-color: var(--card-bg);
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  margin-bottom: 2rem;
-  border: 1px solid var(--border-color);
-}
-
-/* --- Responsive Design --- */
-
-/* Mobile Styles (up to 768px) */
+/* Mobile (Up to 768px) */
 @media screen and (max-width: 768px) {
-  .container,
-  .navbar-container {
+  /* Navigation */
+  .container, .navbar-container {
     padding: 0 20px;
   }
-
+  
   .hamburger {
     display: flex;
   }
@@ -899,8 +832,9 @@ p {
     left: 0;
   }
 
+  /* Hero & Search Fixes */
   .hero {
-    padding: 4rem 0;
+    padding: 3rem 0;
   }
 
   .hero h1 {
@@ -909,19 +843,45 @@ p {
 
   .hero p {
     font-size: 1rem;
-    padding: 0 10px;
+    padding: 0 1rem;
   }
 
+  /* SEARCH FIX: Switches from absolute positioning to stacked flex column */
+  .desktop-search {
+    display: none;
+  }
+  
+  .mobile-search {
+    display: block !important;
+    width: 100%;
+    padding: 0 1rem;
+  }
+  
   .search-container {
+    display: flex;
     flex-direction: column;
+    gap: 12px;
     padding: 0 10px;
+    margin: 0;
+    position: relative; /* ensure context is reset */
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
   }
 
   .search-button {
-    padding: 1rem;
+    position: static !important; /* force override */
+    transform: none !important;  /* remove translateY(-50%) */
     width: 100%;
+    padding: 1rem;
+    border-radius: 50px;
+    margin-top: 0;
   }
 
+  /* Layout Adjustments */
   .category-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -934,148 +894,35 @@ p {
   .pet-name {
     font-size: 2rem;
   }
+  
+  .pet-profile > div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
 
   .quick-facts {
     grid-template-columns: 1fr 1fr;
   }
 
-  .care-grid {
+  .care-grid, .gallery-grid {
     grid-template-columns: 1fr;
   }
-
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
-/* Tablet Styles (769px - 1024px) */
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-  .category-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .hero h1 {
-    font-size: 3rem;
-  }
-}
-
-/* Small Mobile Styles (up to 480px) */
+/* Small Mobile (Up to 480px) */
 @media screen and (max-width: 480px) {
-  .quick-facts {
-    grid-template-columns: 1fr;
-  }
-
-  .gallery-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .pet-header {
-    height: 250px;
-  }
-
-  .pet-name {
+  .hero h1 {
     font-size: 1.8rem;
   }
-
   .section-title {
     font-size: 2rem;
   }
-
-  .hero h1 {
-    font-size: 1.8rem;
+  .pet-header {
+    height: 250px;
   }
-}
-
-/* Desktop search */
-.desktop-search {
-  flex: 1;
-  max-width: 400px;
-  margin: 0 2rem;
-  display: block;
-}
-
-.mobile-search {
-  margin-top: 1rem;
-  display: none;
-}
-
-/* Responsive styles */
-@media screen and (max-width: 768px) {
-  .desktop-search {
-    display: none;
+  .pet-name {
+    font-size: 1.5rem;
   }
-  
-  .mobile-search {
-    display: block !important;
-    width: 100%;
-    padding: 0 1rem;
+  .quick-facts {
+    grid-template-columns: 1fr;
   }
-  
-  .mobile-search .search-container {
-    margin: 0;
-  }
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 768px) {
-  .hero {
-    padding: 3rem 0;
-  }
-  
-  .hero h1 {
-    font-size: 2rem;
-  }
-  
-  .hero p {
-    font-size: 1rem;
-    padding: 0 1rem;
-  }
-  
-  .hero .search-container {
-    padding: 0 1rem;
-  }
-  
-  .hero .search-button {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.9rem;
-  }
-}
-
-/* Loading spinner */
-.loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid var(--border-color);
-  border-top-color: var(--accent-green);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Search suggestions scrollbar */
-.suggestions-container {
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-.suggestions-container::-webkit-scrollbar {
-  width: 8px;
-}
-
-.suggestions-container::-webkit-scrollbar-track {
-  background: var(--secondary-dark);
-}
-
-.suggestions-container::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 4px;
-}
-
-.suggestions-container::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-green);
 }
