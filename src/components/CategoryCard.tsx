@@ -8,16 +8,12 @@ interface CategoryCardProps {
     name: string;
     description: string;
     image: string;
-    path?: string; // Make path optional
   };
 }
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
-  // Use the path if provided, otherwise construct from id
-  const linkTo = category.path || `/category/${category.id}`;
-  
   return (
-    <Link to={linkTo} className="category-card">
+    <Link to={`/category/${category.id}`} className="category-card">
       <img src={category.image} alt={category.name} className="category-image" />
       <div className="category-content">
         <h3 className="category-title">{category.name}</h3>

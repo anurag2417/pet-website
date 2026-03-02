@@ -7,7 +7,7 @@ import AuthModal from './AuthModal';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
-  
+
   const { user, isAuthenticated } = useUser();
 
   return (
@@ -15,9 +15,9 @@ const Navbar = () => {
       <div className="navbar-container">
         <Link to="/" className="logo">
           <div className="logo-icon">🐾</div>
-          <span>PetPedia</span>
+          <span>Petopedia</span>
         </Link>
-        
+
         <div className={`nav-menu ${isOpen ? 'active' : ''}`}>
           <li className="nav-item">
             <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
@@ -37,13 +37,13 @@ const Navbar = () => {
           <li className="nav-item">
             <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
           </li>
-          
+
           {/* User Menu - Desktop */}
           <li className="nav-item user-menu">
             {isAuthenticated ? (
-              <Link to="/dashboard" style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
+              <Link to="/dashboard" style={{
+                display: 'flex',
+                alignItems: 'center',
                 gap: '0.5rem',
                 backgroundColor: 'var(--secondary-dark)',
                 padding: '0.5rem 1rem',
@@ -81,7 +81,7 @@ const Navbar = () => {
             )}
           </li>
         </div>
-        
+
         <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
           <span></span>
           <span></span>

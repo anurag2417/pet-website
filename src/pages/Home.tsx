@@ -27,7 +27,7 @@ const Home = () => {
           <h1>Welcome to Petopedia</h1>
           <p>Your comprehensive guide to pet care and animal knowledge</p>
 
-          {/* Search Form - Now matches the design */}
+          {/* Search Form */}
           <form onSubmit={handleSearch} className="search-container" style={{ maxWidth: '600px', margin: '0 auto' }}>
             <input
               type="text"
@@ -38,11 +38,11 @@ const Home = () => {
                 width: '100%',
                 padding: '1rem 1.5rem',
                 fontSize: '1rem',
-                border: '2px solid #ddd',
+                border: 'none',
                 borderRadius: '50px',
-                backgroundColor: '#ffffff', // White background
-                color: '#333333', // Dark text
-                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
+                backgroundColor: 'white',
+                color: '#333',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)'
               }}
             />
             <button
