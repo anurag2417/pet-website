@@ -926,3 +926,57 @@ h1, h2, h3, h4 {
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================================
+   COMPARE PAGE FIXES
+========================================= */
+
+/* Fix 1: Section title inside compare header box */
+.compare-page-header .section-title {
+  position: static;
+  transform: none;
+  left: auto;
+  display: block;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Fix 2: Pet selection grid - prevent overflow from 'auto' column */
+.compare-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Always 3 equal columns */
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+/* Fix 3: Comparison table horizontal scroll on smaller screens */
+.comparison-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 20px;
+}
+
+/* Fix 4: Table min-width so columns don't collapse */
+.comparison-table-wrapper > div {
+  min-width: 600px;
+}
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+  .compare-slots-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .compare-slots-grid {
+    grid-template-columns: 1fr; /* Stack vertically on mobile */
+    gap: 1rem;
+  }
+
+  .comparison-table-wrapper > div {
+    min-width: 500px;
+  }
+}

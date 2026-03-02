@@ -78,7 +78,7 @@ const Compare = () => {
     return (
         <div className="container" style={{ padding: '2rem 0' }}>
             {/* Header */}
-            <div style={{
+            <div className="compare-page-header" style={{
                 textAlign: 'center',
                 marginBottom: '3rem',
                 padding: '2rem',
@@ -102,7 +102,7 @@ const Compare = () => {
             {/* Pet Selection Area */}
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: `repeat(${Math.max(selectedPets.length, 1)}, 1fr) ${selectedPets.length < 3 ? 'auto' : ''}`,
+                gridTemplateColumns: 'repeat(3, 1fr)',
                 gap: '1.5rem',
                 marginBottom: '3rem',
                 minHeight: '300px'
