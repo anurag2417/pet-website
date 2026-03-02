@@ -4,6 +4,8 @@ import { useParams, Link } from 'react-router-dom';
 import { getPetById, getPetsByCategory, type Pet } from '../data/petData';
 import PrintCareSheet from '../components/PrintCareSheet';
 import PDFCareSheet from '../components/PDFCareSheet';
+import { useUser } from '../context/UserContext';
+import AuthModal from '../components/AuthModal';
 
 const PetProfile = () => {
   const { categoryId, petId } = useParams<{ categoryId: string; petId: string }>();
@@ -13,6 +15,9 @@ const PetProfile = () => {
   const [activeImage, setActiveImage] = useState(0);
   const [showPrintModal, setShowPrintModal] = useState(false);
   const [showPDFModal, setShowPDFModal] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  
+  const { isAuthenticated, isFavorite, addFavorite, removeFavorite } = useUser();
 
   useEffect(() => {
     // Simulate loading data
@@ -35,6 +40,19 @@ const PetProfile = () => {
     // Scroll to top when pet changes
     window.scrollTo(0, 0);
   }, [categoryId, petId]);
+
+  const handleFavoriteClick = () => {
+    if (!isAuthenticated) {
+      setShowAuthModal(true);
+      return;
+    }
+    
+    if (pet && isFavorite(pet.id)) {
+      removeFavorite(pet.id);
+    } else if (pet) {
+      addFavorite(pet);
+    }
+  };
 
   // Loading state
   if (loading) {
@@ -344,7 +362,46 @@ const PetProfile = () => {
 
           {/* Right Column - Fun Facts, Quick Info, and Action Buttons */}
           <div>
-            {/* Fun Facts Section (your existing code) */}
+            {/* Favorite Button */}
+            <button
+              onClick={handleFavoriteClick}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.75rem',
+                padding: '1rem',
+                backgroundColor: pet && isFavorite(pet.id) ? '#dc3545' : 'var(--secondary-dark)',
+                border: `2px solid ${pet && isFavorite(pet.id) ? '#dc3545' : 'var(--border-color)'}`,
+                borderRadius: '12px',
+                color: pet && isFavorite(pet.id) ? 'white' : 'var(--text-primary)',
+                cursor: 'pointer',
+                width: '100%',
+                fontSize: '1rem',
+                fontWeight: '600',
+                marginBottom: '1rem',
+                transition: 'all 0.3s'
+              }}
+              onMouseEnter={(e) => {
+                if (pet && !isFavorite(pet.id)) {
+                  e.currentTarget.style.backgroundColor = 'var(--card-bg)';
+                  e.currentTarget.style.borderColor = 'var(--accent-green)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (pet && !isFavorite(pet.id)) {
+                  e.currentTarget.style.backgroundColor = 'var(--secondary-dark)';
+                  e.currentTarget.style.borderColor = 'var(--border-color)';
+                }
+              }}
+            >
+              <span style={{ fontSize: '1.2rem' }}>
+                {pet && isFavorite(pet.id) ? '❤️' : '🤍'}
+              </span>
+              {pet && isFavorite(pet.id) ? 'Saved to Favorites' : 'Save to Favorites'}
+            </button>
+
+            {/* Fun Facts Section */}
             <div className="fun-facts" style={{
               backgroundColor: 'var(--secondary-dark)',
               borderRadius: '15px',
@@ -404,7 +461,7 @@ const PetProfile = () => {
               Compare with Others
             </Link>
 
-            {/* Quick Stats Card (your existing code) */}
+            {/* Quick Stats Card */}
             <div style={{
               backgroundColor: 'var(--secondary-dark)',
               borderRadius: '15px',
@@ -545,7 +602,7 @@ const PetProfile = () => {
               </p>
             </div>
 
-            {/* Social Share Buttons - Your existing code */}
+            {/* Social Share Buttons */}
             <div style={{
               display: 'flex',
               gap: '0.5rem',
@@ -663,9 +720,11 @@ const PetProfile = () => {
           </div>
         </div>
       )}
+
       {/* Modals */}
       {showPrintModal && <PrintCareSheet pet={pet} onClose={() => setShowPrintModal(false)} />}
       {showPDFModal && <PDFCareSheet pet={pet} onClose={() => setShowPDFModal(false)} />}
+      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
 
       {/* Add CSS animation */}
       <style>{`
