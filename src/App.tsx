@@ -11,24 +11,29 @@ import Search from './pages/Search';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Compare from './pages/Compare';
+import { UserProvider } from './context/UserContext';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/category/:categoryId" element={<CategoryDetail />} />
-          <Route path="/pet/:categoryId/:petId" element={<PetProfile />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/compare" element={<Compare />} />
-        </Routes>
-        <Footer />
-      </div>
+      <UserProvider>
+        <div className="App">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/category/:categoryId" element={<CategoryDetail />} />
+            <Route path="/pet/:categoryId/:petId" element={<PetProfile />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/compare" element={<Compare />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+          <Footer />
+        </div>
+      </UserProvider>
     </Router>
   );
 }
